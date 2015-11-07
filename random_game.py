@@ -35,6 +35,15 @@ def get_winner(board):
         raise ValueError("game is not over!")
     return not board.turn
 
+''' prints out information about how game ended '''
+def print_game_enders(board):
+    print("fivefold repitition: %r" % board.is_fivefold_repetition())
+    print("seventy five moves: %r" %board.is_seventyfive_moves())
+    print("checkmate: %r" % board.is_checkmate())
+    print("stalemate: %r" % board.is_stalemate())
+    print("insufficient material: %r" % board.is_insufficient_material())
+
+
 '''
 Runs random game until game is over
 Each player switches off making random legal moves
@@ -50,10 +59,10 @@ def run_random_game():
 
     while(not board.is_game_over()):
         num_turns += 1
-
         moves = list(board.legal_moves)
         num_moves = len(moves)
         move_index = random.randrange(0, num_moves)
+
         print_turn(board)
         print(board)
         print("")
@@ -62,11 +71,7 @@ def run_random_game():
         print("")
         print("")
 
-    print("fivefold repitition: %r" % board.is_fivefold_repetition())
-    print("seventy five moves: %r" %board.is_seventyfive_moves())
-    print("checkmate: %r" % board.is_checkmate())
-    print("stalemate: %r" % board.is_stalemate())
-    print("insufficient material: %r" % board.is_insufficient_material())
+    print_game_enders(board)
     print_turn(board) # loser
     return get_winner(board)
 
