@@ -5,7 +5,7 @@ WHITE = True
 BLACK = False
 
 
-# prints which player's turn it is
+''' prints which player's turn it is '''
 def print_turn(board):
     if board.turn is WHITE:
         print("white's turn")
@@ -13,7 +13,14 @@ def print_turn(board):
         print("black's turn")
     pass
 
-# prints list of legal moves for current player
+''' converts player (boolean) to string '''
+def player_str(player):
+    if player is WHITE:
+        return "WHITE"
+    else:
+        return "BLACK"
+
+''' prints list of legal moves for current player '''
 def print_legal_moves(board):
     moves = list(board.legal_moves)
     for move in moves:
@@ -22,9 +29,17 @@ def print_legal_moves(board):
         board.pop()
     pass
 
-# runs random game until game is over
-# each player switches off making random legal moves
+''' returns winner from endgame state '''
+def get_winner(board):
+    if(not board.is_game_over):
+        raise ValueError("game is not over!")
+    return not board.turn
 
+'''
+Runs random game until game is over
+Each player switches off making random legal moves
+Returns losing player
+'''
 def run_random_game():
     board = chess.Board();
     num_turns = 0
@@ -38,14 +53,11 @@ def run_random_game():
 
         moves = list(board.legal_moves)
         num_moves = len(moves)
-        r = random.randrange(0, num_moves)
-        # print(num_moves)
-        # print("random num: %d" % r)
-        # print("legal moves", board.legal_moves)
+        move_index = random.randrange(0, num_moves)
         print_turn(board)
         print(board)
         print("")
-        board.push(moves[r])
+        board.push(moves[move_index])
         print(board)
         print("")
         print("")
@@ -56,9 +68,9 @@ def run_random_game():
     print("stalemate: %r" % board.is_stalemate())
     print("insufficient material: %r" % board.is_insufficient_material())
     print_turn(board) # loser
-    pass
-
+    return get_winner(board)
 
 
 if __name__=='__main__':
-    run_random_game()
+    winner = run_random_game()
+    print("winner is %s" % player_str(winner))
