@@ -75,6 +75,22 @@ def run_random_game():
     print_turn(board) # loser
     return get_winner(board)
 
+def run_random_game_no_printing():
+    board = chess.Board();
+    num_turns = 0
+    while(not board.is_game_over()):
+        num_turns += 1
+        moves = list(board.legal_moves)
+        num_moves = len(moves)
+        move_index = random.randrange(0, num_moves)
+
+        board.push(moves[move_index])
+
+
+    # print_game_enders(board)
+    return get_winner(board)
+
+
 
 if __name__=='__main__':
     winner = run_random_game()
