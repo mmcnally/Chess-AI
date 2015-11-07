@@ -83,13 +83,8 @@ def run_random_game_no_printing():
         moves = list(board.legal_moves)
         num_moves = len(moves)
         move_index = random.randrange(0, num_moves)
-
         board.push(moves[move_index])
-
-
-    # print_game_enders(board)
     return get_winner(board)
-
 
 
 if __name__=='__main__':
