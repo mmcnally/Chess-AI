@@ -1,6 +1,7 @@
 import chess
 import sys
 import copy
+import time
 
 def minimaxAlphaBeta(board, move, depth, isMax, alpha, beta):
     if depth > 0:
@@ -9,20 +10,20 @@ def minimaxAlphaBeta(board, move, depth, isMax, alpha, beta):
         else:
             best_value, best_move = (sys.maxsize,None)
         for legal_move in board.legal_moves:
-            if alpha > beta:
+            if alpha < beta:
                 board_cpy = copy.deepcopy(board)
                 board_cpy.push(legal_move)
                 next_value = minimax(board_cpy,legal_move,depth-1,not isMax)[0]
                 if isMax:
                     if next_value > best_value:
                         best_value, best_move = next_value, legal_move
-                    if next_value > beta:
-                        beta = next_value
+                    if next_value > alpha:
+                        alpha = next_value
                 else:
                     if next_value < best_value:
                         best_value, best_move = next_value, legal_move
-                    if next_value < alpha:
-                        alpha = next_value
+                    if next_value < beta:
+                        beta = next_value
         return best_value, best_move
     else:
         return evaluate(board), move
@@ -68,3 +69,18 @@ def evaluate(board):
         elif piece == 'Q':
             sum += 9
     return sum
+
+board = chess.Board()
+print(board)
+
+time1 = time.time()
+print(minimaxAlphaBeta(board,None,4,True,sys.maxsize*-1,sys.maxsize))
+time2 = time.time()
+
+print(time2-time1)
+
+time1 = time.time()
+print(minimax(board,None,4,True))
+time2 = time.time()
+
+print(time2-time1)
