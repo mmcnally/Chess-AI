@@ -1,0 +1,1 @@
+This folder is needed to hold dbs.  If this folder is empty, run create_db.py from main directory
