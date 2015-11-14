@@ -51,7 +51,10 @@ def minimax(board, move, depth, isMax):
 def evaluate(board):
     sum = 0
     for i in range(64):
-        piece = board.piece_at(i)
+        pieceObj = board.piece_at(i)
+        piece = ""
+        if(pieceObj != None):
+            piece = pieceObj.symbol()
         if piece == 'p':
             sum -= 1
         elif piece == 'n' or piece == 'b':
@@ -70,17 +73,5 @@ def evaluate(board):
             sum += 9
     return sum
 
-board = chess.Board()
-print(board)
-
-time1 = time.time()
-print(minimaxAlphaBeta(board,None,4,True,sys.maxsize*-1,sys.maxsize))
-time2 = time.time()
-
-print(time2-time1)
-
-time1 = time.time()
-print(minimax(board,None,4,True))
-time2 = time.time()
-
-print(time2-time1)
+board = chess.Board("r1bqkb1r/pppp1Qpp/2n2n2/4p3/2B1P3/8/PPPP1PPP/RNB1K1NR b KQkq - 0 4")
+print(evaluate(board))
