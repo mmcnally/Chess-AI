@@ -60,7 +60,7 @@ def run_random_game_vs_minimax_with_printing():
     print(board)
     print("")
 
-    while(not board.is_game_over()):
+    while not board.is_game_over():
         chosen_move = None
         if(is_mini):
             print("minimax")
