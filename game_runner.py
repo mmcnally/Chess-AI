@@ -77,6 +77,17 @@ def create_player_from_str(s):
         print("example call: python3 game_runner random minimax")
 
 
+'''
+usage: can take in 2 or 3 args to dynamically make game
+  arg1 = player1 algorithm ["minimax" | "alpha_beta" | "random"]
+  arg2 = player2 algorithm ["minimax" | "alpha_beta" | "random"]
+  arg3 = option depth (default is DEFAULT_DEPTH)
+
+examples:
+  python3 game_runner minimax random
+  python3 game_runner minimax random 2
+  python3 game_runner random alpha_beta 1
+'''
 if __name__=='__main__':
     if len(sys.argv) is 3:
         # two players and default depth
