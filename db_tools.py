@@ -1,13 +1,10 @@
-import os
 import sqlite3
 
-STATIC_PATH = os.getcwd()
-database = STATIC_PATH+'/db/datadump.db'
-
+DATABASE_PATH = 'db/chess.db'
 
 ''' sets up database if it isn't already set up '''
 def setup_db():
-    conn = sqlite3.connect('db/chess.db')
+    conn = sqlite3.connect(DATABASE_PATH)
     c = conn.cursor()
 
     ''' create table if it isn't there '''
@@ -24,7 +21,7 @@ def setup_db():
 
 def get_connection():
     setup_db()
-    return sqlite3.connect('db/chess.db')
+    return sqlite3.connect(DATABASE_PATH)
 
 
 if __name__=='__main__':
