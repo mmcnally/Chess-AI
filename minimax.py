@@ -2,6 +2,7 @@ import chess
 import sys
 import copy
 import time
+import evaluator
 
 '''
 Runner for Minimax algorithm with Alpha-Beta pruning
@@ -35,7 +36,8 @@ def minimax_alpha_beta_internals(board, move, depth, isMax, alpha, beta):
                         beta = next_value
         return best_value, best_move
     else:
-        return evaluate(board), move
+        return evaluator.evaluate(board), move
+
 
 def minimax(board, move, depth, isMax):
     if depth > 0:
@@ -55,32 +57,9 @@ def minimax(board, move, depth, isMax):
                     best_value, best_move = next_value, legal_move
         return best_value, best_move
     else:
-        return evaluate(board), move
+        return evaluator.evaluate(board), move
 
-def evaluate(board):
-    sum = 0
-    for i in range(64):
-        pieceObj = board.piece_at(i)
-        piece = ""
-        if(pieceObj != None):
-            piece = pieceObj.symbol()
-        if piece == 'p':
-            sum -= 1
-        elif piece == 'n' or piece == 'b':
-            sum -= 3
-        elif piece == 'r':
-            sum -= 5
-        elif piece == 'q':
-            sum -= 9
-        elif piece == 'P':
-            sum += 1
-        elif piece == 'N' or piece == 'B':
-            sum += 3
-        elif piece == 'R':
-            sum += 5
-        elif piece == 'Q':
-            sum += 9
-    return sum
+
 
 board = chess.Board("r1bqkb1r/pppp1Qpp/2n2n2/4p3/2B1P3/8/PPPP1PPP/RNB1K1NR b KQkq - 0 4")
-print(evaluate(board))
+print(evaluator.evaluate(board))
