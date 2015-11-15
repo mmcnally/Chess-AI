@@ -3,7 +3,16 @@ import sys
 import copy
 import time
 
-def minimaxAlphaBeta(board, move, depth, isMax, alpha, beta):
+'''
+Runner for Minimax algorithm with Alpha-Beta pruning
+calls internal algorithm and simplifies parameters
+'''
+def minimax_alpha_beta(board, depth, isMax):
+    alpha = -sys.maxsize
+    beta = sys.maxsize
+    return minimax_alpha_beta_internals(board, None, depth, isMax, alpha, beta)
+
+def minimax_alpha_beta_internals(board, move, depth, isMax, alpha, beta):
     if depth > 0:
         if isMax:
             best_value, best_move = (sys.maxsize*-1,None)

@@ -47,3 +47,6 @@ def print_game_enders(board):
     print("checkmate: %r" % board.is_checkmate())
     print("stalemate: %r" % board.is_stalemate())
     print("insufficient material: %r" % board.is_insufficient_material())
+
+# def print_game_ender(board):
+#     reason = None
