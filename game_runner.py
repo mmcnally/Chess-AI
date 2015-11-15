@@ -1,6 +1,10 @@
 import players
 import chess
 import game_tools
+import sys
+
+DEFAULT_DEPTH = 3
+
 
 class Game(object):
 
@@ -10,7 +14,7 @@ class Game(object):
         self.depth = depth
         self.board = chess.Board()
 
-    def run(self):
+    def play(self):
         while not self.board.is_game_over():
             if self.is_white_turn():
                 print("player 1, white's turn, %s" % self.player1)
@@ -26,7 +30,7 @@ class Game(object):
             print("")
 
 
-        return game_tools.get_winner(board)
+        return game_tools.get_winner(self.board)
 
 
     def is_white_turn(self):
@@ -34,13 +38,61 @@ class Game(object):
 
 
 
-
-def mini_vs_rand():
-    player1 = players.Minimax_Player()
-    player2 = players.Random_Player()
-    game = Game(player1, player2, 3)
-    winner = game.run()
+def simulate_game(player1, player2, depth):
+    game = Game(player1, player2, DEFAULT_DEPTH)
+    winner = game.play()
     print("winner is %s!" % game_tools.player_str(winner))
 
+def minimax_vs_random():
+    player1 = players.Minimax_Player()
+    player2 = players.Random_Player()
+    simulate_game(player1, player2, DEFAULT_DEPTH)
+
+def random_vs_random():
+    player1 = players.Random_Player()
+    player2 = players.Random_Player()
+    simulate_game(player1, player2, DEFAULT_DEPTH)
+
+def minimax_vs_minimax():
+    player1 = players.Minimax_Player()
+    player2 = players.Minimax_Player()
+    simulate_game(player1, player2, DEFAULT_DEPTH)
+
+def minimax_vs_alpha_beta():
+    player1 = players.Minimax_Player()
+    player2 = players.Minimax_Alpha_Beta_Player()
+    simulate_game(player1, player2, DEFAULT_DEPTH)
+
+def create_player_from_str(s):
+    if s == "minimax":
+        return players.Minimax_Player()
+    elif s == "alpha_beta" or s == "minimax_alpha_beta":
+        return players.Minimax_Alpha_Beta_Player()
+    elif s == "random":
+        return players.Random_Player()
+    else:
+        print("you done messed up son :(")
+        print("players should be 'minimax', 'alpha_beta', or 'random', " +
+              "each without single quotes\n")
+        print("example call: python3 game_runner random minimax")
+
+
 if __name__=='__main__':
-    mini_vs_rand()
+    if len(sys.argv) is 3:
+        # two players and default depth
+        p1 = create_player_from_str(sys.argv[1])
+        p2 = create_player_from_str(sys.argv[2])
+        print("player 1 is %s\n" % p1+
+              "player 2 is %s" % p2)
+        print("")
+        simulate_game(p1, p2, DEFAULT_DEPTH)
+        print(DEFAULT_DEPTH)
+    elif len(sys.argv) is 4:
+        # two players and depth
+        p1 = create_player_from_str(sys.argv[1])
+        p2 = create_player_from_str(sys.argv[2])
+        depth = sys.argv[3]
+        simulate_game(p1, p2, depth)
+    else:
+        # default game to play
+        minimax_vs_random()
