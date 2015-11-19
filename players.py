@@ -36,6 +36,15 @@ class Minimax_Alpha_Beta_Player(Player):
     def __str__(self):
         return "Minimax Alpha-Beta Player"
 
+class Minimax_Alpha_Beta_Player_2(Player):
+    def calculate_move(self, board, whites_turn, depth):
+        isMax = whites_turn
+        value, move = minimax.minimax_alpha_beta_2(board, depth, isMax)
+        return move
+
+    def __str__(self):
+        return "Minimax Alpha-Beta Player 2"
+
 
 class Random_Player(Player):
     def calculate_move(self, board, whites_turn, depth):
