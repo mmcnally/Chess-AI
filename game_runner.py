@@ -68,6 +68,8 @@ def create_player_from_str(s):
         return players.Minimax_Player()
     elif s == "alpha_beta" or s == "minimax_alpha_beta":
         return players.Minimax_Alpha_Beta_Player()
+    elif s == "alpha_beta_2" or s == "minimax_alpha_beta_2":
+        return players.Minimax_Alpha_Beta_Player_2()
     elif s == "random":
         return players.Random_Player()
     else:
