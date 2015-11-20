@@ -39,7 +39,7 @@ class Game(object):
 
 
 def simulate_game(player1, player2, depth):
-    game = Game(player1, player2, DEFAULT_DEPTH)
+    game = Game(player1, player2, depth)
     winner = game.play()
     print("winner is %s!" % game_tools.player_str(winner))
 
