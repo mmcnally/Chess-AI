@@ -23,7 +23,7 @@ def minimax_alpha_beta_internals_2(board, move, depth, isMax, alpha, beta):
             if alpha < beta:
                 board_cpy = copy.deepcopy(board)
                 board_cpy.push(legal_move)
-                next_value = minimax_alpha_beta_internals(board_cpy,legal_move,depth-1,not isMax,alpha,beta)[0]
+                next_value = minimax_alpha_beta_internals_2(board_cpy,legal_move,depth-1,not isMax,alpha,beta)[0]
                 if isMax:
                     if next_value > best_value:
                         best_value, best_move = next_value, legal_move
@@ -89,7 +89,3 @@ def minimax(board, move, depth, isMax):
     else:
         return evaluator.evaluate(board), move
 
-
-if __name__=='__main__':
-    board = chess.Board("r1bqkb1r/pppp1Qpp/2n2n2/4p3/2B1P3/8/PPPP1PPP/RNB1K1NR b KQkq - 0 4")
-    print(evaluator.evaluate(board))
