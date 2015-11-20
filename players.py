@@ -20,7 +20,7 @@ class Player(object):
     '''
     def calculate_move_timed(self, board, whites_turn, depth):
         start = time.clock()
-        move = calculate_move(self, board, whites_turn, depth)
+        move = self.calculate_move(board, whites_turn, depth)
         end = time.clock()
         total_time = end - start
         return move, total_time
@@ -126,5 +126,5 @@ class Random_Player(Player):
 #     return game_tools.get_winner(board)
 
 
-if __name__=='__main__':
+# if __name__=='__main__':
     # run_random_game_vs_minimax_with_printing()
