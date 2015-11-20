@@ -104,7 +104,7 @@ if __name__=='__main__':
         # two players and depth
         p1 = create_player_from_str(sys.argv[1])
         p2 = create_player_from_str(sys.argv[2])
-        depth = sys.argv[3]
+        depth = int(sys.argv[3])
         simulate_game(p1, p2, depth)
     else:
         # default game to play
