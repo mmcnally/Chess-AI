@@ -48,21 +48,6 @@ def minimax_vs_random():
     player2 = players.Random_Player()
     simulate_game(player1, player2, DEFAULT_DEPTH)
 
-def random_vs_random():
-    player1 = players.Random_Player()
-    player2 = players.Random_Player()
-    simulate_game(player1, player2, DEFAULT_DEPTH)
-
-def minimax_vs_minimax():
-    player1 = players.Minimax_Player()
-    player2 = players.Minimax_Player()
-    simulate_game(player1, player2, DEFAULT_DEPTH)
-
-def minimax_vs_alpha_beta():
-    player1 = players.Minimax_Player()
-    player2 = players.Minimax_Alpha_Beta_Player()
-    simulate_game(player1, player2, DEFAULT_DEPTH)
-
 def create_player_from_str(s):
     if s == "minimax":
         return players.Minimax_Player()
