@@ -14,6 +14,19 @@ class Game(object):
         self.depth = depth
         self.board = chess.Board()
 
+
+    def play_no_printing(self):
+        while not self.board.is_game_over():
+            if self.is_white_turn():
+                move = self.player1.calculate_move(self.board, True, self.depth)
+                self.board.push(move)
+            else:
+                move = self.player2.calculate_move(self.board, False, self.depth)
+                self.board.push(move)
+
+        return game_tools.get_winner(self.board)
+
+
     def play(self):
         while not self.board.is_game_over():
             if self.is_white_turn():
@@ -28,7 +41,6 @@ class Game(object):
             print(self.board)
             print("")
             print("")
-
 
         return game_tools.get_winner(self.board)
 
@@ -86,10 +98,16 @@ if __name__=='__main__':
         simulate_game(p1, p2, DEFAULT_DEPTH)
         print(DEFAULT_DEPTH)
     elif len(sys.argv) is 4:
+
         # two players and depth
         p1 = create_player_from_str(sys.argv[1])
         p2 = create_player_from_str(sys.argv[2])
         depth = int(sys.argv[3])
+        print("player 1 is %s\n" % p1+
+              "player 2 is %s" % p2)
+        print("depth is %d" % depth)
+        print("")
+
         simulate_game(p1, p2, depth)
     else:
         # default game to play
