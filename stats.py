@@ -1,9 +1,8 @@
 import multiprocessing as mp
-import time
-import timeit
-import queue
-import players
-import game_runner
+import time, timeit, math, queue
+
+import players, game_runner
+
 
 
 NUM_PROCS = 4
@@ -24,8 +23,16 @@ def avg_move_mp_runner(player_type, num_games=10, depth=2):
     chunksize = int(num_games / float(NUM_PROCS))
     out_queue = mp.Queue()
     procs = []
+    remaining_games = num_games
+    remaining_procs = NUM_PROCS
     for i in range(NUM_PROCS):
-        games_to_play = chunksize
+        games_to_play = int(math.ceil(float(remaining_games) / float(remaining_procs)))
+        if games_to_play == 0:
+            break
+        remaining_games -= 1
+        remaining_procs -= 1
+
+
         if i == NUM_PROCS - 1:
             games_to_play = num_games - (chunksize * (NUM_PROCS - 1))
         print("process %d is about to run %d games" % (i, games_to_play))
@@ -40,7 +47,7 @@ def avg_move_mp_runner(player_type, num_games=10, depth=2):
 
 
     total_avgs = 0
-    for i in range(NUM_PROCS):
+    for i in range(NUM_PROCS - remaining_procs):
         total_avgs += out_queue.get()
 
     for p in procs:
@@ -52,33 +59,36 @@ def avg_move_mp_runner(player_type, num_games=10, depth=2):
 
 def avg_move_calc_time(player_type, out_queue=None, num_games=10, depth=2):
     minimax_total = 0
-    # print("starting calculations")
     for i in range(num_games):
         player1 = make_player_with_type(player_type)
         player2 = players.Random_Player()
         game = game_runner.Game(player1, player2, depth)
         winner, avg_p1, avg_p2 = game.play_with_avg_moves()
         minimax_total += avg_p1
-        print("finished game %d with avg minimax time %f" % (i, avg_p1))
+        print("finished game %d with avg %s time %f" % (i, player_type, avg_p1))
 
     minimax_avg = minimax_total / num_games
     print("overall average %f" % minimax_avg)
     if out_queue != None:
         out_queue.put(minimax_avg)
-        # print(out_queue.qsize())
         out_queue.close()
 
 
 if __name__=='__main__':
     print("one process")
     t1 = timeit.default_timer()
-    avg = avg_move_calc_time("alpha_beta", num_games=4)
+    avg = avg_move_calc_time("alpha_beta", num_games=8, depth=3)
     t2 = timeit.default_timer()
-    print("time taken: %f" % (t2 - t1))
+    one_proc_time = t2 - t1
+    print("time taken: %f" % (one_proc_time))
     print("")
     print("two processes")
     print("")
     t3 = timeit.default_timer()
-    avg = avg_move_mp_runner("alpha_beta", num_games=4)
+    avg = avg_move_mp_runner("alpha_beta", num_games=8, depth=3)
     t4 = timeit.default_timer()
-    print("time taken: %f" % (t4 - t3))
+    multi_proc_time = t4 - t3
+    diff = one_proc_time - multi_proc_time
+    print("time taken: %f" % (multi_proc_time))
+    print("")
+    print("mp is faster by %f seconds, or %f%%" % (diff, 100 * (diff / one_proc_time)))
