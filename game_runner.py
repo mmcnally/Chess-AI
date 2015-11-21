@@ -18,7 +18,6 @@ class Game(object):
         self.board = chess.Board()
 
 
-
     def play_with_avg_moves(self):
         total_time_p1 = 0
         total_time_p2 = 0
@@ -90,6 +89,7 @@ def simulate_game_avg_move(player1, player2, depth):
 
 
 
+
 def minimax_vs_random():
     player1 = players.Minimax_Player()
     player2 = players.Random_Player()
@@ -127,7 +127,7 @@ usage: can take in 2 or 3 args to dynamically make game
   arg1 = player1 algorithm ["minimax" | "alpha_beta" | "random"]
   arg2 = player2 algorithm ["minimax" | "alpha_beta" | "random"]
   arg3 = option depth (default is DEFAULT_DEPTH)
-  arg4 = stats | nostats (default is nostats)
+  arg4 = option avg move times ["stats" | "nostats"] (default is nostats)
 
 examples:
   python3 game_runner minimax random
