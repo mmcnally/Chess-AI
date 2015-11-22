@@ -76,14 +76,14 @@ def avg_move_calc_time(player_type, out_queue=None, num_games=10, depth=2):
     p1_avg = p1_total / num_games
     print("overall average %f" % p1_avg)
     if out_queue != None:
-        out_queue.put(minimax_avg)
+        out_queue.put(p1_avg)
         out_queue.close()
 
 
 if __name__=='__main__':
     print("one process")
     t1 = timeit.default_timer()
-    avg = avg_move_calc_time("alpha_beta", num_games=8, depth=3)
+    avg = avg_move_calc_time("alpha_beta", num_games=4, depth=4)
     t2 = timeit.default_timer()
     one_proc_time = t2 - t1
     print("time taken: %f" % (one_proc_time))
@@ -91,7 +91,7 @@ if __name__=='__main__':
 
     print("two processes")
     t3 = timeit.default_timer()
-    avg = avg_move_mp_runner("alpha_beta", num_games=8, depth=3)
+    avg = avg_move_mp_runner("alpha_beta", num_games=4, depth=4)
     t4 = timeit.default_timer()
     multi_proc_time = t4 - t3
     diff = one_proc_time - multi_proc_time
