@@ -8,16 +8,19 @@ def get_move(board, whites_turn):
         print("you are playing as white, your pieces are uppercase")
 
     print(board)
+    moves = [move.uci() for move in board.legal_moves]
+    print(moves)
     print("")
 
     human_move = input("enter a move of the form 'a1b1': ")
-    move = chess.Move.from_uci(human_move)
-    if move in board.legal_moves:
-        # move is legal
+
+
+    if human_move in moves:
+        move = chess.Move.from_uci(human_move)
         return move
     else:
         print("that move was not legal :/")
         print("try again")
         # print("here are your legal moves:")
         # print(list(board.legal_moves))
-        get_move(board, whites_turn)
+        return get_move(board, whites_turn)
