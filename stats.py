@@ -34,7 +34,7 @@ def avg_move_mp_runner(player_type, num_games=10, depth=2):
         if games_to_play == 0:
             break
         else:
-            remaining_games -= 1
+            remaining_games -= games_to_play
             remaining_procs -= 1
 
             print("process %d is about to run %d games" % (i, games_to_play))
@@ -83,18 +83,18 @@ def avg_move_calc_time(player_type, out_queue=None, num_games=10, depth=2):
 if __name__=='__main__':
     print("one process")
     t1 = timeit.default_timer()
-    avg = avg_move_calc_time("alpha_beta", num_games=4, depth=4)
+    avg = avg_move_calc_time("alpha_beta", num_games=10, depth=4)
     t2 = timeit.default_timer()
     one_proc_time = t2 - t1
     print("time taken: %f" % (one_proc_time))
     print("")
 
-    print("two processes")
-    t3 = timeit.default_timer()
-    avg = avg_move_mp_runner("alpha_beta", num_games=4, depth=4)
-    t4 = timeit.default_timer()
-    multi_proc_time = t4 - t3
-    diff = one_proc_time - multi_proc_time
-    print("time taken: %f" % (multi_proc_time))
-    print("")
-    print("mp is faster by %f seconds, or %f%%" % (diff, 100 * (diff / one_proc_time)))
+    # print("two processes")
+    # t3 = timeit.default_timer()
+    # avg = avg_move_mp_runner("alpha_beta", num_games=10, depth=3)
+    # t4 = timeit.default_timer()
+    # multi_proc_time = t4 - t3
+    # diff = one_proc_time - multi_proc_time
+    # print("time taken: %f" % (multi_proc_time))
+    # print("")
+    # print("mp is faster by %f seconds, or %f%%" % (diff, 100 * (diff / one_proc_time)))
