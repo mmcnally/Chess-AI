@@ -102,6 +102,8 @@ def create_player_from_str(s):
         return players.Minimax_Alpha_Beta_Player()
     elif s == "alpha_beta_2" or s == "minimax_alpha_beta_2":
         return players.Minimax_Alpha_Beta_Player_2()
+    elif s == "human":
+        return players.Human_Player()
     elif s == "random":
         return players.Random_Player()
     else:
@@ -124,8 +126,8 @@ def get_stat_option(s):
 
 '''
 usage: can take in 2 or 3 args to dynamically make game
-  arg1 = player1 algorithm ["minimax" | "alpha_beta" | "random"]
-  arg2 = player2 algorithm ["minimax" | "alpha_beta" | "random"]
+  arg1 = player1 algorithm ["minimax" | "alpha_beta" | "random" | "human"]
+  arg2 = player2 algorithm ["minimax" | "alpha_beta" | "random" | "human"]
   arg3 = option depth (default is DEFAULT_DEPTH)
   arg4 = option avg move times ["stats" | "nostats"] (default is nostats)
 

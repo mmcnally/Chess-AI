@@ -1,5 +1,5 @@
 import multiprocessing as mp
-import time, timeit, math, queue
+import time, timeit, math, queue, chess
 import players, game_runner
 
 NUM_PROCS = 4
@@ -65,16 +65,22 @@ def avg_move_mp_runner(player_type, num_games=10, depth=2):
 
 def avg_move_calc_time(player_type, out_queue=None, num_games=10, depth=2):
     p1_total = 0
+    p1_wins = 0
     for i in range(num_games):
         player1 = make_player_with_type(player_type)
         player2 = players.Random_Player()
         game = game_runner.Game(player1, player2, depth)
         winner, avg_p1, avg_p2 = game.play_with_avg_moves()
         p1_total += avg_p1
-        print("finished game %d with avg %s time %f" % (i, player_type, avg_p1))
+        if winner == chess.WHITE:
+            p1_wins += 1
+        print("finished game %d with avg %s time %f, p won: %s" % (i, player_type, avg_p1, winner == chess.WHITE))
 
     p1_avg = p1_total / num_games
+    p1_win_prob = p1_wins / num_games
     print("overall average %f" % p1_avg)
+    print("overall wins probability: %f" % p1_win_prob)
+
     if out_queue != None:
         out_queue.put(p1_avg)
         out_queue.close()
@@ -83,7 +89,7 @@ def avg_move_calc_time(player_type, out_queue=None, num_games=10, depth=2):
 if __name__=='__main__':
     print("one process")
     t1 = timeit.default_timer()
-    avg = avg_move_calc_time("alpha_beta", num_games=10, depth=4)
+    avg = avg_move_calc_time("alpha_beta", num_games=10, depth=2)
     t2 = timeit.default_timer()
     one_proc_time = t2 - t1
     print("time taken: %f" % (one_proc_time))

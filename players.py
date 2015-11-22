@@ -1,8 +1,6 @@
-import chess
-import random
-import time
-import minimax
-import game_tools
+import chess, random, time
+import minimax, game_tools, human
+
 
 class Player(object):
     '''
@@ -68,3 +66,11 @@ class Random_Player(Player):
 
     def __str__(self):
         return "Random Player"
+
+class Human_Player(Player):
+    def calculate_move(self, board, whites_turn, depth):
+        move = human.get_move(board, whites_turn)
+        return move
+
+    def __str__(self):
+        return "Human Player"
