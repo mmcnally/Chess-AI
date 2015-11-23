@@ -6,17 +6,23 @@ NUM_PROCS = 4
 
 '''
 takes in string and makes a corresponding Player object
-"minimax" -> Minimax_Player
-"alpha_beta" -> Minimax_Alpha_Beta_Player
+"minimax_naive" -> Minimax_Player_Naive
+"minimax_advanced" -> Minimax_Plater_Advanced
+"alpha_beta_naive" -> Minimax_Alpha_Beta_Player_Naive
+"alpha_beta_advanced" -> Minimax_Alpha_Beta_Player_Advanced
 "random" -> Random_Player
 
 Returns created Player object
 '''
 def make_player_with_type(player_type):
-    if player_type == 'minimax':
-        return players.Minimax_Player()
-    elif player_type == 'alpha_beta':
-        return players.Minimax_Alpha_Beta_Player()
+    if player_type == 'minimax_naive':
+        return players.Minimax_Player_Naive()
+    elif player_type == 'minimax_advanced':
+        return players.Minimax_Player_Advanced()
+    elif player_type == 'alpha_beta_naive':
+        return players.Minimax_Alpha_Beta_Player_Naive()
+    elif player_type == 'alpha_beta_advanced':
+        return players.Minimax_Alpha_Beta_Player_Advanced()
     elif player_type == 'random':
         return players.Random_Player()
     else:
@@ -74,7 +80,7 @@ def avg_move_calc_time(player_type, out_queue=None, num_games=10, depth=2):
         p1_total += avg_p1
         if winner == chess.WHITE:
             p1_wins += 1
-        print("finished game %d with avg %s time %f, p won: %s" % (i, player_type, avg_p1, winner == chess.WHITE))
+            print("finished game %d, %s, depth: %d, avg time: %f, p won: %s" % (i, player_type, depth,  avg_p1, winner == chess.WHITE))
 
     p1_avg = p1_total / num_games
     p1_win_prob = p1_wins / num_games
@@ -89,7 +95,7 @@ def avg_move_calc_time(player_type, out_queue=None, num_games=10, depth=2):
 if __name__=='__main__':
     print("one process")
     t1 = timeit.default_timer()
-    avg = avg_move_calc_time("alpha_beta", num_games=10, depth=2)
+    avg = avg_move_calc_time("minimax_advanced", num_games=10, depth=3)
     t2 = timeit.default_timer()
     one_proc_time = t2 - t1
     print("time taken: %f" % (one_proc_time))

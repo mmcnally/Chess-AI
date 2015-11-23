@@ -96,19 +96,22 @@ def minimax_vs_random():
     simulate_game_avg_move(player1, player2, 2)
 
 def create_player_from_str(s):
-    if s == "minimax":
-        return players.Minimax_Player()
-    elif s == "alpha_beta" or s == "minimax_alpha_beta":
-        return players.Minimax_Alpha_Beta_Player()
-    elif s == "alpha_beta_2" or s == "minimax_alpha_beta_2":
-        return players.Minimax_Alpha_Beta_Player_2()
+    if s == "minimax_naive":
+        return players.Minimax_Player_Naive()
+    if s == "minimax_advanced":
+        return palyers.Minimax_Player_Advanced()
+    elif s == "alpha_beta_naive":
+        return players.Minimax_Alpha_Beta_Player_Naive()
+    elif s == "alpha_beta_advanced":
+        return players.Minimax_Alpha_Beta_Player_Advanced()
     elif s == "human":
         return players.Human_Player()
     elif s == "random":
         return players.Random_Player()
     else:
         print("you done messed up son :(")
-        print("players should be 'minimax', 'alpha_beta', or 'random', " +
+        print("players should be 'minimax_naive', 'minimax_advanced, " +
+              "'alpha_beta_naive', 'alpha-beta_advanced', 'human', or 'random', " +
               "each without single quotes\n")
         print("example call: python3 game_runner random minimax")
 
@@ -126,16 +129,18 @@ def get_stat_option(s):
 
 '''
 usage: can take in 2 or 3 args to dynamically make game
-  arg1 = player1 algorithm ["minimax" | "alpha_beta" | "random" | "human"]
-  arg2 = player2 algorithm ["minimax" | "alpha_beta" | "random" | "human"]
+  arg1 = player1 ['minimax_naive'|'minimax_advanced'|'alpha_beta_naive'|
+                  'alpha_beta_advanced'|'random'|'human']
+  arg2 = player2 ['minimax_naive'|'minimax_advanced'|'alpha_beta_naive'|
+                  'alpha_beta_advanced'|'random'|'human']
   arg3 = option depth (default is DEFAULT_DEPTH)
   arg4 = option avg move times ["stats" | "nostats"] (default is nostats)
 
 examples:
-  python3 game_runner minimax random
-  python3 game_runner minimax random 2
-  python3 game_runner random alpha_beta 1
-  python3 game_runner random alpha_beta 1 stats
+  python3 game_runner minimax_naive random
+  python3 game_runner minimax_advanced random 2
+  python3 game_runner random alpha_beta_naive 1
+  python3 game_runner random alpha_beta_advanced 1 stats
 '''
 if __name__=='__main__':
     num_args = len(sys.argv)

@@ -1,5 +1,5 @@
 import chess, random, time
-import minimax, game_tools, human
+import minimax, game_tools, human, evaluator
 
 
 class Player(object):
@@ -30,31 +30,44 @@ class Player(object):
     def __str__(self): pass
 
 
-class Minimax_Player(Player):
+class Minimax_Player_Naive(Player):
     def calculate_move(self, board, whites_turn, depth):
-        value, move = minimax.minimax(board, None, depth, whites_turn)
+        value, move = minimax.minimax(board, None, depth,
+                                      whites_turn, evaluator.evaluate_naive)
         return move
 
     def __str__(self):
         return "Minimax Player"
 
-class Minimax_Alpha_Beta_Player(Player):
+class Minimax_Player_Advanced(Player):
     def calculate_move(self, board, whites_turn, depth):
-        isMax = whites_turn
-        value, move = minimax.minimax_alpha_beta(board, depth, isMax)
+        value, move = minimax.minimax(board, None, depth,
+                                      whites_turn, evaluator.evaluate_advanced)
         return move
 
     def __str__(self):
-        return "Minimax Alpha-Beta Player"
+        return "Minimax Player"
 
-class Minimax_Alpha_Beta_Player_2(Player):
+
+class Minimax_Alpha_Beta_Player_Naive(Player):
     def calculate_move(self, board, whites_turn, depth):
         isMax = whites_turn
-        value, move = minimax.minimax_alpha_beta_2(board, depth, isMax)
+        value, move = minimax.minimax_alpha_beta(board, depth, isMax,
+                                                 evaluator.evaluate_naive)
         return move
 
     def __str__(self):
-        return "Minimax Alpha-Beta Player 2"
+        return "Minimax Alpha-Beta Player Naive"
+
+class Minimax_Alpha_Beta_Player_Advanced(Player):
+    def calculate_move(self, board, whites_turn, depth):
+        isMax = whites_turn
+        value, move = minimax.minimax_alpha_beta(board, depth, isMax,
+                                                 evaluator.evaluate_advanced)
+        return move
+
+    def __str__(self):
+        return "Minimax Alpha-Beta Player Advanced"
 
 
 class Random_Player(Player):

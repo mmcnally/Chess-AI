@@ -1,7 +1,7 @@
 import chess
 import sys
 
-def evaluate(board):
+def evaluate_naive(board):
     sum = 0
     for i in range(64):
         piece = board.piece_at(i)
@@ -12,7 +12,7 @@ def evaluate(board):
                 sum -= piece.piece_type
     return sum
 
-def evaluate2(board):
+def evaluate_advanced(board):
     sum = 0
     if board.is_checkmate():
         if board.turn == chess.BLACK:
