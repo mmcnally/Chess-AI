@@ -80,7 +80,7 @@ def avg_move_calc_time(player_type, out_queue=None, num_games=10, depth=2):
         p1_total += avg_p1
         if winner == chess.WHITE:
             p1_wins += 1
-            print("finished game %d, %s, depth: %d, avg time: %f, p won: %s" % (i, player_type, depth,  avg_p1, winner == chess.WHITE))
+        print("finished game %d, %s, depth: %d, avg time: %f, p won: %s" % (i, player_type, depth,  avg_p1, winner == chess.WHITE))
 
     p1_avg = p1_total / num_games
     p1_win_prob = p1_wins / num_games
@@ -95,7 +95,7 @@ def avg_move_calc_time(player_type, out_queue=None, num_games=10, depth=2):
 if __name__=='__main__':
     print("one process")
     t1 = timeit.default_timer()
-    avg = avg_move_calc_time("minimax_advanced", num_games=10, depth=3)
+    avg = avg_move_calc_time("minimax_advanced", num_games=10, depth=4)
     t2 = timeit.default_timer()
     one_proc_time = t2 - t1
     print("time taken: %f" % (one_proc_time))
