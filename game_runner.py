@@ -114,6 +114,7 @@ def create_player_from_str(s):
               "'alpha_beta_naive', 'alpha-beta_advanced', 'human', or 'random', " +
               "each without single quotes\n")
         print("example call: python3 game_runner random minimax")
+        raise ValueError("unrecognized player, see usage")
 
 def get_stat_option(s):
     if s == "stats":
