@@ -91,7 +91,7 @@ def simulate_game_avg_move(player1, player2, depth):
 
 
 def minimax_vs_random():
-    player1 = players.Minimax_Player()
+    player1 = players.Minimax_Player_Naive()
     player2 = players.Random_Player()
     simulate_game_avg_move(player1, player2, 2)
 
