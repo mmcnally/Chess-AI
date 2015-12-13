@@ -21,6 +21,4 @@ def get_move(board, whites_turn):
     else:
         print("that move was not legal :/")
         print("try again")
-        # print("here are your legal moves:")
-        # print(list(board.legal_moves))
         return get_move(board, whites_turn)
