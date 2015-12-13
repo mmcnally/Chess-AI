@@ -98,7 +98,7 @@ def minimax_vs_random():
 def create_player_from_str(s):
     if s == "minimax_naive":
         return players.Minimax_Player_Naive()
-    if s == "minimax_advanced":
+    elif s == "minimax_advanced":
         return palyers.Minimax_Player_Advanced()
     elif s == "alpha_beta_naive":
         return players.Minimax_Alpha_Beta_Player_Naive()
