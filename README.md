@@ -3,8 +3,13 @@
 
 Chess playing program that uses minimax with alpha beta pruning and training from real game data to choose the best moves it can.
 
-#### How to run from terminal:
-##### Make sure you have Python 3.5 installed on your machine
+### How to run from terminal:
+First download python-chess library.  If using pip3 for python3, simply run:
+```
+$ pip3 install python-chess
+```
+
+#### Make sure you have Python 3.5 installed on your machine
 ```
 $ python3 game_runner.py <player1> <player2> <optional depth>
 ```
