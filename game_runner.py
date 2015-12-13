@@ -117,15 +117,7 @@ def create_player_from_str(s):
         raise ValueError("unrecognized player, see usage")
 
 def get_stat_option(s):
-    if s == "stats":
-        return True
-    elif s == "nostats":
-        return False
-    else:
-        print("your stats/nostats argument was neither 'stats' nor 'nostats'\n" +
-              "please fix and reconsider your life choices")
-
-
+    return s == "stats"
 
 
 '''
