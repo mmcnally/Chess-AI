@@ -109,7 +109,6 @@ def create_player_from_str(s):
     elif s == "random":
         return players.Random_Player()
     else:
-        print("you done messed up son :(")
         print("players should be 'minimax_naive', 'minimax_advanced, " +
               "'alpha_beta_naive', 'alpha-beta_advanced', 'human', or 'random', " +
               "each without single quotes\n")
